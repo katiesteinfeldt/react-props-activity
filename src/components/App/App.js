@@ -19,18 +19,22 @@ class App extends Component {
     console.log('Button Up Clicked');
     this.setState({
       currentTotal: Number(this.state.inputNumber + this.state.currentTotal),
+      inputNumber:'',
     })
   }
 
   handleButtonDownClick = () => {
-    console.log('Button Down Clicked');
+    this.setState({
+      currentTotal: Number(this.state.currentTotal - this.state.inputNumber),
+      inputNumber:'',
+    })
   }
 
   render() {
     return (
       <div>
         <Header />
-        <button onClick={this.handleButtonUpClick}>Up</button><input placeholder="Enter Number" type="number" onChange={this.handleInputChange}/><button onClick={this.handleButtonDownClick}>Down</button>
+        <button onClick={this.handleButtonUpClick}>Up</button><input value={this.state.inputNumber}placeholder="Enter Number" type="number" onChange={this.handleInputChange}/><button onClick={this.handleButtonDownClick}>Down</button>
       
         <h3>Current Total: {this.state.currentTotal}</h3>
 
