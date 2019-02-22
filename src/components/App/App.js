@@ -5,6 +5,7 @@ class App extends Component {
   state = {
     currentTotal: '',
     inputNumber: '',
+    numbers: [],
   }
 
 
@@ -19,14 +20,23 @@ class App extends Component {
     console.log('Button Up Clicked');
     this.setState({
       currentTotal: Number(this.state.inputNumber + this.state.currentTotal),
-      inputNumber:'',
+      inputNumber: '',
     })
   }
 
   handleButtonDownClick = () => {
     this.setState({
       currentTotal: Number(this.state.currentTotal - this.state.inputNumber),
-      inputNumber:'',
+      inputNumber: '',
+    })
+  }
+
+  handleSaveClick = () => {
+    console.log('save clicked');
+    this.setState({
+      currentTotal: '',
+      inputNumber: '',
+      numbers: [...this.state.numbers, this.state.currentTotal],
     })
   }
 
@@ -34,10 +44,14 @@ class App extends Component {
     return (
       <div>
         <Header />
-        <button onClick={this.handleButtonUpClick}>Up</button><input value={this.state.inputNumber}placeholder="Enter Number" type="number" onChange={this.handleInputChange}/><button onClick={this.handleButtonDownClick}>Down</button>
-      
-        <h3>Current Total: {this.state.currentTotal}</h3>
+        <button onClick={this.handleButtonUpClick}>Up</button><input value={this.state.inputNumber} placeholder="Enter Number" type="number" onChange={this.handleInputChange} /><button onClick={this.handleButtonDownClick}>Down</button>
 
+        <h3>Current Total: {this.state.currentTotal}</h3>
+        <button onClick={this.handleSaveClick}>Save</button>
+        <h3>History</h3>
+        <ul>
+          {this.state.numbers.map(number => <li key={number}>{number}</li>)}
+        </ul>
 
       </div>
     );
